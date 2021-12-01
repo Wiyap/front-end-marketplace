@@ -7,7 +7,7 @@ const Home = () => {
 
   return (
     <Box>
-      <Typography variant="h2" component="div"  sx={{ mr: 4 } }>
+      <Typography variant="h2" component="div"  sx={{ mr: 4 }}>
         Bienvenue sur Immobills, venez vendre ou acheter vos biens!
       </Typography>
       <RealEstateList />
