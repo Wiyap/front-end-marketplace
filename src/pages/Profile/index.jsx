@@ -1,31 +1,35 @@
-import { Typography } from '@mui/material';
-import AvatarForm from 'components/forms/profileForms/AvatarForm';
-import { Avatar } from '@mui/material';
+//import AvatarForm from 'components/forms/profileForms/AvatarForm';
 import React, { useEffect, useState } from 'react';
 import { useSelector } from 'react-redux';
+import { useParams } from 'react-router';
+import APIManager from 'services/Api'
+import ProfileInfo from 'components/ProfileInfo';
 
 const Profile = () => {
+  const userStore = useSelector( state => state.userReducer)
+  const [profile, setProfile] = useState({username: "", email: ""})
+  const [realEstates, setRealEstates] = useState()
+  const {id} = useParams()
+  
 
-  const data = useSelector( state => state.userReducer )
-  const [user, setUser] = useState({username: "", email: ""})
-
-  useEffect (() => {
-    if (data.user){
-      setUser(data.user)
-    }
+  useEffect (
+    () => { 
+      const fetchUserProfile = async() => {
+        const userID = id || userStore.user.id
+        const response = await APIManager.getUserProfile(userID)
+        setProfile(response.user)
+        setRealEstates(response.real_estates)
+      }
+    fetchUserProfile()
   },
-  [data]
+  [userStore, id]
   )
+
+
 
   return (
     <div className="Profile">
-      <h2>Profile</h2>
-      <Typography variant="h6" component="p">
-        Username: {user.username}
-      </Typography>
-      <Typography variant="h6" component="p">
-        Email: {user.email}
-      </Typography>
+      <ProfileInfo profile={profile}/>
     </div> 
   );
 };
