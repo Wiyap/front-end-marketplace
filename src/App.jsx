@@ -10,6 +10,7 @@ import APIManager from 'services/Api';
 import { useDispatch } from 'react-redux';
 import { useSelector } from 'react-redux';
 import { ThemeProvider, CssBaseline } from '@mui/material';
+import RealEstate from 'pages/RealEstate';
 
 const App = () => {
   const dispatch = useDispatch()
@@ -60,6 +61,7 @@ const App = () => {
             <Route path="/login" element={<Login />} />
             <Route path="/profile" element={<Profile />} exact />
             <Route path="/profile/:id" element={<Profile />} exact />
+            <Route path="/real_estate/:id" element={<RealEstate />}  exact />
           </Routes>
         </Router>
 

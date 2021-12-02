@@ -4,6 +4,7 @@ import { useSelector } from 'react-redux';
 import { useParams } from 'react-router';
 import APIManager from 'services/Api'
 import ProfileInfo from 'components/ProfileInfo';
+import RealEstateList from 'components/RealEstateList';
 
 const Profile = () => {
   const userStore = useSelector( state => state.userReducer)
@@ -20,7 +21,9 @@ const Profile = () => {
         setProfile(response.user)
         setRealEstates(response.real_estates)
       }
-    fetchUserProfile()
+    if (userStore.user) {
+      fetchUserProfile() 
+    }
   },
   [userStore, id]
   )
@@ -30,6 +33,7 @@ const Profile = () => {
   return (
     <div className="Profile">
       <ProfileInfo profile={profile}/>
+      <RealEstateList list={realEstates} />
     </div> 
   );
 };
